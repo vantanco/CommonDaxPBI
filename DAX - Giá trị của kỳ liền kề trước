@@ -1,0 +1,17 @@
+VAR PeriodEnd = FIRSTDATE('Dim_date'[Date])-1
+VAR PeriodStart = 
+PeriodEnd - 
+DATEDIFF(
+    FIRSTDATE('Dim_date'[Date]),
+    LASTDATE('Dim_date'[Date]),
+    DAY
+)
+VAR Result = 
+CALCULATE(
+    sum(FACT_TRANSACTION[FEEVAL]),
+    DATESBETWEEN('Dim_date'[Date],
+    PeriodStart,PeriodEnd
+    )
+)
+Return
+Result
