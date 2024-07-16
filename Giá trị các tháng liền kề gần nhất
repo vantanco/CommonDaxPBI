@@ -1,0 +1,14 @@
+VAR Daukydangchon = FIRSTDATE(DIM_Date[Đầu tháng])
+var CuoiKyTruoc= Daukydangchon-1
+
+var sothang=CALCULATE(DISTINCTCOUNT(DIM_Date[Đầu tháng]))
+VAR DauKyTruoc = DATEADD(daukydangchon,-sothang,MONTH)
+
+VAR Result = 
+CALCULATE(
+    [NAV - Bình quân],
+    DATESBETWEEN(DIM_Date[Date],DauKyTruoc,CuoiKyTruoc
+    )
+)
+Return
+Result
