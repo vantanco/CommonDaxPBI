@@ -1,0 +1,31 @@
+DIM_Date = 
+var _fromYear=2015 //Từ năm bao nhiêu
+var _today=TODAY()
+return
+ADDCOLUMNS(
+CALENDAR(
+DATE(_fromYear,1,1),
+_today
+),
+"Năm",YEAR([Date]),
+"Đầu năm",DATE( YEAR([Date]),1,1),
+"Tháng",MONTH([Date]),
+"Đầu tháng",DATE( YEAR([Date]), MONTH([Date]), 1),
+"Số ngày trong tháng",DATEDIFF(DATE( YEAR([Date]), MONTH([Date]), 1),EOMONTH([Date],0),DAY)+1,
+"Tháng/Năm",FORMAT([Date],"mm/yy"),
+"Tháng/Năm order",INT(FORMAT([Date],"YYYYMM")),
+"Ngày",DAY([Date]),
+"Thứ",FORMAT([Date],"DDDD","vi-VN"),
+"Ngày trong tuần",WEEKDAY([Date]),
+"Ngày trong năm",DATEDIFF(DATE( YEAR([Date]), 1, 1),[Date],DAY)+1,
+"Quý",QUARTER([Date]),
+"Quý/Năm","Q"&FORMAT([Date],"Q")&"/"&YEAR([Date]),
+"Quý/Năm order",INT(FORMAT([Date],"YYYYQ")),
+"Đầu quý",DATE( YEAR([Date]), (QUARTER([Date])*3)-2, 1),
+"Tuần",WEEKNUM([Date]),
+"Đầu tuần", [Date]-WEEKDAY([Date])+1,
+"Hôm trước",DATE( YEAR([Date]), MONTH([Date]), DAY([Date]))-1,
+"Đầu tháng trước",DATE( YEAR([Date]), MONTH([Date])-1, 1),
+"Đầu quý trước",DATE( YEAR([Date]), MONTH([Date])-3, 1),
+"Đầu năm trước",DATE( YEAR([Date])-1, MONTH([Date]), 1))
+
