@@ -1,0 +1,4 @@
+var thangtruoc=PREVIOUSMONTH(DIM_Date[Đầu tháng])
+var NavThangTruoc=CALCULATE([Measure_% Tỷ lệ phí tổng],filter(all(DIM_Date),DIM_Date[Đầu tháng]=thangtruoc))
+return
+NavThangTruoc
