@@ -28,4 +28,3 @@ _today
 "Đầu tháng trước",DATE( YEAR([Date]), MONTH([Date])-1, 1),
 "Đầu quý trước",DATE( YEAR([Date]), MONTH([Date])-3, 1),
 "Đầu năm trước",DATE( YEAR([Date])-1, MONTH([Date]), 1))
-
