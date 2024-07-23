@@ -1,14 +1,16 @@
-VAR Daukydangchon = FIRSTDATE(DIM_Date[Đầu tháng])
-var CuoiKyTruoc= Daukydangchon-1
+VAR Daukydangchon = FIRSTDATE(DIM_Date[Đầu tháng])    // Ngày đầu kỳ được chọn
 
-var sothang=CALCULATE(DISTINCTCOUNT(DIM_Date[Đầu tháng]))
-VAR DauKyTruoc = DATEADD(daukydangchon,-sothang,MONTH)
+VAR CuoiKyTruoc = Daukydangchon - 1    // Ngày kết thúc của kỳ trước kỳ hiện tại (ngày trước ngày đầu kỳ)
+
+VAR sothang = CALCULATE(DISTINCTCOUNT(DIM_Date[Đầu tháng]))    // Tính số tháng có trong dữ liệu, dựa trên số lượng tháng khác nhau
+
+VAR DauKyTruoc = DATEADD(Daukydangchon, -sothang, MONTH)    // Ngày bắt đầu của kỳ trước, lùi lại số tháng từ ngày đầu kỳ hiện tại
 
 VAR Result = 
-CALCULATE(
-    [NAV - Bình quân],
-    DATESBETWEEN(DIM_Date[Date],DauKyTruoc,CuoiKyTruoc
-    )
-)
-Return
-Result
+    CALCULATE(
+        [NAV - Bình quân],
+        DATESBETWEEN(DIM_Date[Date], DauKyTruoc, CuoiKyTruoc)
+    )    // Tính giá trị NAV bình quân trong khoảng thời gian từ ngày bắt đầu kỳ trước đến ngày kết thúc của kỳ trước
+
+RETURN
+    Result    // Trả về giá trị NAV bình quân trong khoảng thời gian đã tính toán
