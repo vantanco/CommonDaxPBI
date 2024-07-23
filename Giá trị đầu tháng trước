@@ -1,4 +1,14 @@
-var thangtruoc=PREVIOUSMONTH(DIM_Date[Đầu tháng])
-var NavThangTruoc=CALCULATE([Measure_% Tỷ lệ phí tổng],filter(all(DIM_Date),DIM_Date[Đầu tháng]=thangtruoc))
-return
-NavThangTruoc
+VAR thangtruoc = 
+    PREVIOUSMONTH(DIM_Date[Đầu tháng])  // Xác định tháng trước tháng hiện tại
+
+VAR NavThangTruoc = 
+    CALCULATE(
+        [Measure_% Tỷ lệ phí tổng],
+        FILTER(
+            ALL(DIM_Date), 
+            DIM_Date[Đầu tháng] = thangtruoc
+        )
+    )  // Tính toán tỷ lệ phí tổng của tháng trước bằng cách lọc dữ liệu để chỉ bao gồm tháng trước
+
+RETURN
+    NavThangTruoc  // Trả về tỷ lệ phí tổng của tháng trước
