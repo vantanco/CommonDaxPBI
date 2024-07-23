@@ -1,17 +1,18 @@
-VAR PeriodEnd = FIRSTDATE('Dim_date'[Date])-1
+VAR PeriodEnd = FIRSTDATE('Dim_date'[Date]) - 1      // Ngày kết thúc của khoảng thời gian là ngày trước ngày đầu tiên của dữ liệu
+
 VAR PeriodStart = 
-PeriodEnd - 
-DATEDIFF(
-    FIRSTDATE('Dim_date'[Date]),
-    LASTDATE('Dim_date'[Date]),
-    DAY
-)
+    PeriodEnd - 
+    DATEDIFF(
+        FIRSTDATE('Dim_date'[Date]), 
+        LASTDATE('Dim_date'[Date]), 
+        DAY
+    )      // Ngày bắt đầu của khoảng thời gian, được tính bằng cách trừ số ngày giữa ngày đầu tiên và ngày cuối cùng của dữ liệu từ ngày kết thúc
+
 VAR Result = 
-CALCULATE(
-    sum(FACT_TRANSACTION[FEEVAL]),
-    DATESBETWEEN('Dim_date'[Date],
-    PeriodStart,PeriodEnd
-    )
-)
-Return
-Result
+    CALCULATE(
+        SUM(FACT_TRANSACTION[FEEVAL]), 
+        DATESBETWEEN('Dim_date'[Date], PeriodStart, PeriodEnd)
+    )     // Tính tổng giá trị phí (FEEVAL) trong khoảng thời gian từ PeriodStart đến PeriodEnd
+
+RETURN
+Result    // Trả về tổng giá trị phí trong khoảng thời gian đã tính toán
