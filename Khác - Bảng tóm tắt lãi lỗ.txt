@@ -1,0 +1,12 @@
+VAR _table =
+    SUMMARIZE (
+        'FACT_DATAGIAODICH_04012022_10082022',
+        'FACT_DATAGIAODICH_04012022_10082022'[Mã CK],
+        "@lai", CALCULATE ( SUM ( 'FACT_DATAGIAODICH_04012022_10082022'[Lãi lỗ đã TH] ) )
+    ) // Tạo bảng tóm tắt với mã chứng khoán và lãi lỗ đã thực hiện
+    
+VAR _filter =
+    FILTER ( _table, [@lai] < 0 ) // Lọc ra các giao dịch có lãi lỗ âm
+    
+RETURN
+    SUMX ( _filter, [@lai] ) // Tính tổng lãi lỗ âm

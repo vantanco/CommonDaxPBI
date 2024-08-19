@@ -1,0 +1,17 @@
+SWITCH (
+    SELECTEDVALUE ( 'Filter_Top Bottom'[Filter] ), // Lấy giá trị được chọn từ bộ lọc 'Filter_Top Bottom'
+    "Top",
+        RANKX (
+            ALL ( 'DIM_Thông tin Mã' ),
+            'Measure_Giá trị trung bình'[Measure_Lợi nhuận trung bình],
+            ,
+            DESC
+        ), // Xếp hạng để xuất ra vị trí top nếu giá trị thuộc bảng xếp hạng giảm dần
+    "Bottom",
+        RANKX (
+            ALL ( 'DIM_Thông tin Mã' ),
+            'Measure_Giá trị trung bình'[Measure_Lợi nhuận trung bình],
+            ,
+            ASC
+        ) // Xếp hạng để xuất ra vị trí bottom nếu giá trị thuộc bảng xếp hạng tăng dần
+)

@@ -1,0 +1,18 @@
+VAR ketqua =
+    UNICHAR ( 9650 ) & " "
+        & FORMAT ( [Measure _Nav trung bình thay đổi so với kỳ liền kè], [Format - bn] ) & " | "
+        & FORMAT (
+            [Measure _% Nav trung bình thay đổi so với kỳ liền kề],
+            "+0.00%;-#0%;0%;-"
+        ) // Tạo chuỗi kết quả với biểu tượng và định dạng số
+        
+RETURN
+    IF (
+        ISBLANK ( [Measure _% Nav trung bình thay đổi so với kỳ liền kề] ),
+        "N/A", // Kiểm tra nếu tỷ lệ thay đổi NAV là trống thì trả về "N/A"
+        SWITCH (
+            TRUE (),
+            [Measure _% Nav trung bình thay đổi so với kỳ liền kề] >= 0, ketqua,	// Nếu tỷ lệ thay đổi NAV >= 0 thì trả về kết quả đã tạo
+            BLANK () // Nếu không thỏa mãn điều kiện trên thì trả về giá trị trống
+        )
+    )

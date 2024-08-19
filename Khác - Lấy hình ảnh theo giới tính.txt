@@ -1,0 +1,9 @@
+VAR gioitinh =
+    CALCULATE ( FIRSTNONBLANK ( DIM_THONGTINKH_11082022_1[Giới tính], 1 ) ) // Lấy giá trị giới tính đầu tiên không rỗng
+
+RETURN
+    IF (
+        gioitinh = "F", // Nếu giới tính là nữ
+        "https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/60-512.png", // Trả về URL ảnh đại diện nữ
+        "https://cdn-icons-png.flaticon.com/512/6998/6998021.png" // Ngược lại, trả về URL ảnh đại diện nam
+    )

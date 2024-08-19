@@ -1,0 +1,15 @@
+VAR ketqua =
+    UNICHAR ( 9650 ) & " "
+        & FORMAT ( [Measure _VQ thay đổi so với kỳ liền kề], "0.00" ) & " | "
+        & FORMAT ( [Measure _% VQ thay đổi so với kỳ liền kề], "+0.00%;-#0%;0%;-" ) // Tạo chuỗi kết quả với biểu tượng và định dạng số
+        
+RETURN
+    IF (
+        ISBLANK ( [Measure _% VQ thay đổi so với kỳ liền kề] ),
+        "N/A",	// Kiểm tra nếu tỷ lệ thay đổi VQ là trống thì trả về "N/A"
+        SWITCH (
+            TRUE (),
+            [Measure _% VQ thay đổi so với kỳ liền kề] >= 0, ketqua,		// Nếu tỷ lệ thay đổi VQ >= 0 thì trả về kết quả đã tạo
+            BLANK () // Nếu không thỏa mãn điều kiện trên thì trả về giá trị trống
+        )
+    )

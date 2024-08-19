@@ -1,0 +1,8 @@
+VAR thangxanhat =
+    FORMAT ( FIRSTDATE ( FACT_NAV[Ngày giao dịch] ), "dd/mm/yyyy" ) // Ngày giao dịch đầu tiên
+
+VAR thanggannhat =
+    FORMAT ( LASTDATE ( FACT_NAV[Ngày giao dịch] ), "dd/mm/yyyy" ) // Ngày giao dịch cuối cùng
+
+RETURN
+    thangxanhat & " - " & thanggannhat // Kết hợp ngày đầu tiên và ngày cuối cùng thành khoảng thời gian

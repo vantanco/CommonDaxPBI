@@ -1,0 +1,14 @@
+VAR ketqua1 =
+    AVERAGEX (
+        KEEPFILTERS ( VALUES ( DIM_Date[Date] ) ), // Giữ lại các ngày được lọc
+        CALCULATE (
+            DISTINCTCOUNT ( FACT_DANHMUC_KH[Tài khoản] ), // Đếm số lượng tài khoản duy nhất
+            FILTER (
+                FACT_DANHMUC_KH,
+                [Số lượng(Settled)] > 100
+            ) // Lọc chỉ những hàng có số lượng settled > 100
+        )
+    )
+    
+RETURN
+    ketqua1 // Trả về giá trị trung bình số lượng tài khoản

@@ -1,0 +1,30 @@
+VAR _ngaymo =
+    SELECTEDVALUE ( 'Dim_ 12 Tháng'[Tháng/Năm] ) // Lấy giá trị được chọn của tháng mở tài khoản từ bảng 'Dim_ 12 Tháng'
+    
+VAR _ngaygiaodich =
+    SELECTEDVALUE ( DIM_Date[Tháng/năm] ) // Lấy giá trị được chọn của tháng giao dịch từ bảng DIM_Date
+    
+VAR tkcogd =
+    CALCULATE (
+        DISTINCTCOUNT ( FACT_DATAGIAODICH_04012022_10082022[Tài khoản] ), // Đếm số lượng tài khoản có giao dịch duy nhất
+        FORMAT (
+            DIM_THONGTINKH_11082022_1[Ngày mở tk],
+            "mm/yyyy"
+        ) = _ngaymo, // Lọc các tài khoản mở trong tháng được chọn
+        FACT_DATAGIAODICH_04012022_10082022[Tháng/Năm] = _ngaygiaodich // Lọc các giao dịch trong tháng được chọn
+    )
+    
+VAR tkmomoi =
+    CALCULATE (
+        DISTINCTCOUNT ( DIM_THONGTINKH_11082022_1[Mã NĐT] ), // Đếm số lượng tài khoản mở mới duy nhất
+        FORMAT (
+            DIM_THONGTINKH_11082022_1[Ngày mở tk],
+            "mm/yyyy"
+        ) = _ngaymo // Lọc các tài khoản mở trong tháng được chọn
+    )
+    
+VAR ketqua =
+    DIVIDE ( tkcogd, tkmomoi ) // Tính tỷ lệ tài khoản có giao dịch trên tổng tài khoản mở mới
+    
+RETURN
+    ketqua // Trả về kết quả tỷ lệ

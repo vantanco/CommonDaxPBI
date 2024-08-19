@@ -1,0 +1,19 @@
+VAR thang =
+    CALCULATE ( FIRSTNONBLANK ( DIM_Date[Tháng], 1 ) ) // Lấy giá trị tháng hiện tại
+    
+VAR ngaycuoithang =
+    CALCULATE (
+        LASTDATE ( DIM_Date[Date] ),
+        ALL ( DIM_Date ),
+        DIM_Date[Ngày giao dịch] = 1,
+        DIM_Date[Tháng] = thang
+    ) // Ngày cuối tháng có giao dịch
+    
+VAR lailotamtinhcuoithang =
+    CALCULATE (
+        SUM ( 'FACT_DANHMUC_KH'[Lãi lỗ tạm tính (Tiền)] ),
+        DIM_Date[Date] = ngaycuoithang
+    ) // Lãi lỗ tạm tính tại ngày cuối tháng
+    
+RETURN
+    lailotamtinhcuoithang // Trả về lãi lỗ tạm tính cuối tháng

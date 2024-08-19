@@ -1,0 +1,19 @@
+VAR ngaydau =
+    CALCULATE ( FIRSTDATE ( DIM_Date[Date] ), ALLSELECTED ( DIM_Date ) ) // Lấy ngày đầu tiên từ bảng DIM_Date với các bộ lọc hiện tại
+    
+VAR ngaycuoi =
+    CALCULATE ( LASTDATE ( DIM_Date[Date] ), ALLSELECTED ( DIM_Date ) ) // Lấy ngày cuối cùng từ bảng DIM_Date với các bộ lọc hiện tại
+    
+VAR _TableMoMoi =
+    CALCULATETABLE (
+        DIM_THONGTINKH_11082022_1,
+        REMOVEFILTERS ( DIM_Date ), // Loại bỏ các bộ lọc trên DIM_Date
+        DIM_THONGTINKH_11082022_1[Ngày mở tk] >= ngaydau
+            && DIM_THONGTINKH_11082022_1[Ngày mở tk] <= ngaycuoi // Lọc các tài khoản mở mới trong khoảng thời gian từ ngày đầu đến ngày cuối
+    )
+    
+RETURN
+    CALCULATE (
+        [GT.Nợ average per Date theo tháng], // Tính GT.Nợ trung bình theo tháng
+        _TableMoMoi // Áp dụng bảng tài khoản mở mới đã lọc
+    )

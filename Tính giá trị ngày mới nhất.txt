@@ -1,0 +1,11 @@
+VAR ngaymoinhat =
+    CALCULATE ( LASTDATE ( FACT_NAV[Ngày giao dịch] ) ) // Xác định ngày giao dịch mới nhất
+    
+RETURN
+    CALCULATE (
+        SUM ( FACT_NAV[GIATRINAV] ), // Tính tổng GIATRINAV
+        FILTER (
+            ALL ( FACT_NAV[Ngày giao dịch] ),
+            FACT_NAV[Ngày giao dịch] = ngaymoinhat
+        ) // Lọc dữ liệu chỉ cho ngày mới nhất
+    )
